@@ -18,7 +18,7 @@ public class UserRoleDomain {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userRoleid;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade =CascadeType.ALL ,  fetch = FetchType.EAGER)
     private UserDomain userDomain ;
 
     @ManyToOne

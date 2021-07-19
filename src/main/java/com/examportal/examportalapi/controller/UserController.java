@@ -2,6 +2,7 @@ package com.examportal.examportalapi.controller;
 
 import com.examportal.examportalapi.data.transfer.object.MessageDto;
 import com.examportal.examportalapi.data.transfer.object.UserDto;
+import com.examportal.examportalapi.service.RoleService;
 import com.examportal.examportalapi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @PostMapping("/add")
     public MessageDto addUser(@RequestBody UserDto userDto)
     {
-        log.info("post call have been received at user/add with DTO" + userDto);
-        return userService.add(userDto);
+        log.info("Post call have been received at user/add with DTO " + userDto);
+        return userService.add(userDto , roleService.add(userDto));
     }
 
 

@@ -21,7 +21,7 @@ public class UserDomain {
     private int userId;
     private String firstName;
     private String lastName;
-    private String userName = firstName + lastName;
+    private String userName;
     private String email;
     private String password;
     private boolean isEnabled = true;
