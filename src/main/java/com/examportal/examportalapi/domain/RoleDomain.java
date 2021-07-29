@@ -1,13 +1,11 @@
 package com.examportal.examportalapi.domain;
 
-import com.examportal.examportalapi.data.transfer.object.UserRoleDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.swing.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,9 +13,9 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDomain {
+public class RoleDomain implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
     private String name;
 

@@ -5,20 +5,23 @@ import com.examportal.examportalapi.data.transfer.object.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRoleDomain {
+public class UserRoleDomain implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userRoleid;
 
-    @ManyToOne(cascade =CascadeType.ALL ,  fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userDomain_userId")
     private UserDomain userDomain ;
 
     @ManyToOne
