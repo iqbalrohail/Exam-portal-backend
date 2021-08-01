@@ -12,13 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
 @Service
-@Transactional
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
@@ -35,46 +37,78 @@ public class UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    public MessageDto add(UserDomain userDomain , Set<UserRoleDomain> userRoles)
-    {
-            // UserDomain userDomain = mapUserDtoToDomain(userDto);
-            if( userRepository.findByUserName(userDomain.getUserName())!=null)
-            {
-                String responseMessage = "User is already register with name ! "+userDomain.getUserName();
-                MessageDto messageDto = new MessageDto(responseMessage);
-                log.info(responseMessage);
-                return messageDto;
+    public MessageDto add(UserDomain userDomain, Set<UserRoleDomain> userRoles) {
+        // UserDomain userDomain = mapUserDtoToDomain(userDto);
+        if (userRepository.findByUserName(userDomain.getUserName()) != null) {
+            String responseMessage = "User is already register with name ! " + userDomain.getUserName();
+            MessageDto messageDto = new MessageDto(responseMessage);
+            log.info(responseMessage);
+            return messageDto;
+        } else {
+
+            for (UserRoleDomain userRoleDomain : userRoles) {
+                System.out.println("result : " + userRoleDomain.getRoleDomain());
+                roleRepository.save(userRoleDomain.getRoleDomain());
             }
-            else {
 
-                for (UserRoleDomain userRoleDomain: userRoles) {
-                    System.out.println("result : "+userRoleDomain.getRoleDomain());
-                    roleRepository.save(userRoleDomain.getRoleDomain());
-                }
-
-                userDomain.getUserRoleDomains().addAll(userRoles);
-                userRepository.save(userDomain);
-                String responseMessage = "User has been added with Id " + userDomain.getUserId();
-                MessageDto messageDto = new MessageDto(responseMessage);
-                log.info(responseMessage);
-                return messageDto;
-            }
+            userDomain.getUserRoleDomains().addAll(userRoles);
+            userRepository.save(userDomain);
+            String responseMessage = "User has been added with Id " + userDomain.getUserId();
+            MessageDto messageDto = new MessageDto(responseMessage);
+            log.info(responseMessage);
+            return messageDto;
+        }
     }
 
-    public UserDto getById(String userName)
-    {
-       UserDomain userDomain =  userRepository.findByUserName(userName);
-       return mapUserDomainToDto(userDomain);
+    public UserDto getByUserName(String userName) {
+        UserDomain userDomain = userRepository.findByUserName(userName);
+        return mapUserDomainToDto(userDomain);
     }
 
-    public UserDomain mapUserDtoToDomain(UserDto userDto)
-    {
-        return objectMapper.convertValue(userDto , UserDomain.class);
+    public List<UserDomain> getAll() {
+        return userRepository.findAll();
     }
 
-    public UserDto mapUserDomainToDto(UserDomain userDomain)
-    {
-        return objectMapper.convertValue(userDomain , UserDto.class);
+    public MessageDto deleteUsers(String userName) {
+        UserDomain userDomain = userRepository.findByUserName(userName);
+
+        if (userDomain != null) {
+            userRepository.delete(userDomain);
+            String responseMessage = "User have been deleted with User Name " + userName;
+            MessageDto messageDto = new MessageDto(responseMessage);
+            return messageDto;
+
+        } else {
+            String responseMessage = "User cannot be found with User Name " + userName;
+            MessageDto messageDto = new MessageDto(responseMessage);
+            return messageDto;
+
+        }
+    }
+
+    public MessageDto updateUsers(UserDto userDto, int id) {
+
+        if (userRepository.findById(id).isPresent()) {
+            userDto.setUserId(id);
+            userRepository.saveAndFlush(mapUserDtoToDomain(userDto));
+            String responseMessage = "User have been updated with User Name " + userDto.getUserName();
+            MessageDto messageDto = new MessageDto(responseMessage);
+            return messageDto;
+
+        } else {
+            String responseMessage = "User cannot be found with User Name " + userDto.getUserName();
+            MessageDto messageDto = new MessageDto(responseMessage);
+            return messageDto;
+        }
+
+    }
+
+    public UserDomain mapUserDtoToDomain(UserDto userDto) {
+        return objectMapper.convertValue(userDto, UserDomain.class);
+    }
+
+    public UserDto mapUserDomainToDto(UserDomain userDomain) {
+        return objectMapper.convertValue(userDomain, UserDto.class);
     }
 
 }

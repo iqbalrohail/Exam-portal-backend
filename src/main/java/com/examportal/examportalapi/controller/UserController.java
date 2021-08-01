@@ -27,19 +27,34 @@ public class UserController {
     private RoleService roleService;
 
     @PostMapping("/add")
-    public MessageDto addUser(@RequestBody UserDto userDto)
-    {
+    public MessageDto addUser(@RequestBody UserDto userDto) {
         log.info("Post call have been received at user/add with DTO " + userDto);
-                                             //Set<UserRoleDomain>
+        //Set<UserRoleDomain>
         UserDomain userDomain = userService.mapUserDtoToDomain(userDto);
         return userService.add(userDomain, roleService.add(userDomain));
     }
 
     @GetMapping("/get/{userName}")
-    public UserDto getUsers(@PathVariable("userName") String userName)
-    {
-        log.info("Get call have been received at user/get/ "+userName);
-        return userService.getById(userName);
+    public UserDto getUsers(@PathVariable("userName") String userName) {
+        log.info("Get call have been received at user/get/ " + userName);
+        return userService.getByUserName(userName);
+    }
+
+    @GetMapping("/getAll")
+    public List<UserDomain> getAll() {
+        return userService.getAll();
+    }
+
+    @DeleteMapping("/delete/{userName}")
+    public MessageDto deleteUsers(@PathVariable("userName") String userName) {
+        log.info("Delete call have been received at user/delete with User Name " + userName);
+        return userService.deleteUsers(userName);
+    }
+
+    @PutMapping("/update/{id}")
+    public MessageDto updateUsers(@RequestBody UserDto userDto, @PathVariable("id") int id) {
+        log.info("Update call have been received at user/update with User Name " + userDto.getUserName());
+        return userService.updateUsers(userDto, id);
     }
 
 }

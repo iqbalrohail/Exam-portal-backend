@@ -1,12 +1,13 @@
 package com.examportal.examportalapi.data.transfer.object;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class MessageDto {
     private String responseMessage;
 }

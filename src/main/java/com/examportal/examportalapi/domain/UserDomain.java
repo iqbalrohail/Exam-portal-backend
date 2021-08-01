@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-public class UserDomain implements Serializable {
+public class UserDomain  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +29,6 @@ public class UserDomain implements Serializable {
     private boolean isEnabled = true;
 
     @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER , mappedBy = "userDomain")
+    @JsonIgnore
     private Set<UserRoleDomain> userRoleDomains = new HashSet<>();
 }
