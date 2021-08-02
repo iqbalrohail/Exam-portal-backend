@@ -26,7 +26,7 @@ public class UserDomain implements UserDetails {
     private int userId;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private boolean isEnabled = true;
@@ -44,11 +44,6 @@ public class UserDomain implements UserDetails {
         });
 
         return authorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.examportal.examportalapi;
+package com.examportal.examportalapi.service;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
