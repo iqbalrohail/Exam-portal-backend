@@ -16,7 +16,7 @@ public class UserDto {
     private int userId;
     private String firstName;
     private String lastName;
-    private String userName ;
+    private String username ;
     private String email;
     private String password;
     private boolean isEnabled = true;

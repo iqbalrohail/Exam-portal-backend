@@ -39,8 +39,8 @@ public class UserService {
 
     public MessageDto add(UserDomain userDomain, Set<UserRoleDomain> userRoles) {
         // UserDomain userDomain = mapUserDtoToDomain(userDto);
-        if (userRepository.findByUserName(userDomain.getUserName()) != null) {
-            String responseMessage = "User is already register with name ! " + userDomain.getUserName();
+        if (userRepository.findByUsername(userDomain.getUsername()) != null) {
+            String responseMessage = "User is already register with name ! " + userDomain.getUsername();
             MessageDto messageDto = new MessageDto(responseMessage);
             log.info(responseMessage);
             return messageDto;
@@ -61,7 +61,7 @@ public class UserService {
     }
 
     public UserDto getByUserName(String userName) {
-        UserDomain userDomain = userRepository.findByUserName(userName);
+        UserDomain userDomain = userRepository.findByUsername(userName);
         return mapUserDomainToDto(userDomain);
     }
 
@@ -70,7 +70,7 @@ public class UserService {
     }
 
     public MessageDto deleteUsers(String userName) {
-        UserDomain userDomain = userRepository.findByUserName(userName);
+        UserDomain userDomain = userRepository.findByUsername(userName);
 
         if (userDomain != null) {
             userRepository.delete(userDomain);
@@ -91,12 +91,12 @@ public class UserService {
         if (userRepository.findById(id).isPresent()) {
             userDto.setUserId(id);
             userRepository.saveAndFlush(mapUserDtoToDomain(userDto));
-            String responseMessage = "User have been updated with User Name " + userDto.getUserName();
+            String responseMessage = "User have been updated with User Name " + userDto.getUsername();
             MessageDto messageDto = new MessageDto(responseMessage);
             return messageDto;
 
         } else {
-            String responseMessage = "User cannot be found with User Name " + userDto.getUserName();
+            String responseMessage = "User cannot be found with User Name " + userDto.getUsername();
             MessageDto messageDto = new MessageDto(responseMessage);
             return messageDto;
         }

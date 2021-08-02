@@ -53,7 +53,7 @@ public class UserController {
 
     @PutMapping("/update/{id}")
     public MessageDto updateUsers(@RequestBody UserDto userDto, @PathVariable("id") int id) {
-        log.info("Update call have been received at user/update with User Name " + userDto.getUserName());
+        log.info("Update call have been received at user/update with User Name " + userDto.getUsername());
         return userService.updateUsers(userDto, id);
     }
 
