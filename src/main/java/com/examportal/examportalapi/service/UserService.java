@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,9 @@ public class UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public MessageDto add(UserDomain userDomain, Set<UserRoleDomain> userRoles) {
         // UserDomain userDomain = mapUserDtoToDomain(userDto);
         if (userRepository.findByUsername(userDomain.getUsername()) != null) {
@@ -45,6 +49,7 @@ public class UserService {
             log.info(responseMessage);
             return messageDto;
         } else {
+            userDomain.setPassword(bCryptPasswordEncoder.encode(userDomain.getPassword()));
 
             for (UserRoleDomain userRoleDomain : userRoles) {
                 System.out.println("result : " + userRoleDomain.getRoleDomain());
