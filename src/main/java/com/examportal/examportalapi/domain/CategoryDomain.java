@@ -1,9 +1,9 @@
 package com.examportal.examportalapi.domain;
 
-import com.examportal.examportalapi.data.transfer.object.QuizDto;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.springframework.data.repository.cdi.Eager;
+
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
