@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -62,8 +61,9 @@ public class QuizService {
     {
         if(quizRepository.findById(id).isPresent())
         {
-          QuizDomain quizDomain = quizRepository.findById(id).get();
-          quizRepository.delete(quizDomain);
+         QuizDomain quizDomain = new QuizDomain();
+         quizDomain.setQuizId(id);
+         quizRepository.delete(quizDomain);
             String message = "Quiz have been deleted with id "+id;
             MessageDto messageDto = new MessageDto(message);
             return messageDto;

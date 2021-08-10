@@ -23,7 +23,7 @@ public class CategoryDomain {
     private String title;
     private String description;
 
-    @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL , orphanRemoval = true , fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<QuizDomain> quizDomains = new LinkedHashSet<>();
 }
