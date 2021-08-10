@@ -12,7 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 public class QuizDto {
-
     private int quizId;
     private Boolean activeStatus;
     private String title;
@@ -20,6 +19,6 @@ public class QuizDto {
     private String maxMarks;
     private String numberOfQuestions;
 
-    private CategoryDto categoryDto;
+    private CategoryDto category;
     private Set<QuestionDto> questionDtos = new HashSet<>();
 }

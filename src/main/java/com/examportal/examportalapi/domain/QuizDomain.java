@@ -27,9 +27,10 @@ public class QuizDomain {
     private String numberOfQuestions;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private CategoryDomain categoryDomain;
+    private CategoryDomain category;
 
     @OneToMany(mappedBy = "quizDomain" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<QuestionDomain> questionDomains = new HashSet<>();
+
 }
