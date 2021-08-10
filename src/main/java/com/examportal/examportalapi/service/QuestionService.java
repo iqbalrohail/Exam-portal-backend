@@ -63,7 +63,6 @@ public class QuestionService {
             return messageDto;
         }
     }
-
     public MessageDto deleteQuestionById(int id)
     {
         if(questionRepository.findById(id).isPresent())
@@ -80,7 +79,7 @@ public class QuestionService {
         }
 
     }
-    
+
     public List<QuestionDomain> getQuestionsOfQuiz(int id)
     {
         QuizDomain quizDomain =quizRepository.findById(id).get();
