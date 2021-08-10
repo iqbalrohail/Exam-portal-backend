@@ -18,7 +18,6 @@ public class QuizDto {
     private String description;
     private String maxMarks;
     private String numberOfQuestions;
-
     private CategoryDto category;
-    private Set<QuestionDto> questionDtos = new HashSet<>();
+    private Set<QuestionDto> questions = new HashSet<>();
 }

@@ -29,8 +29,9 @@ public class QuizDomain {
     @ManyToOne(fetch = FetchType.EAGER)
     private CategoryDomain category;
 
-    @OneToMany(mappedBy = "quizDomain" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "quiz" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<QuestionDomain> questionDomains = new HashSet<>();
+    private Set<QuestionDomain> questions = new HashSet<>();
 
 }

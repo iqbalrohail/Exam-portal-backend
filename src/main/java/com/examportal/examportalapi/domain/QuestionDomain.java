@@ -24,6 +24,7 @@ public class QuestionDomain {
     private String option3;
     private String option4;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
-    private QuizDomain quizDomain;
+    private QuizDomain quiz;
 }
